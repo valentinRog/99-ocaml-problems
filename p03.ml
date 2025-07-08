@@ -1,6 +1,5 @@
 let rec at i l =
   match (i, l) with
-  | i, _ when i < 0 -> None
   | _, [] -> None
   | 0, hd :: _ -> Some hd
   | _, _ :: tl -> at (i - 1) tl
