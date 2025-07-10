@@ -1,0 +1,16 @@
+type 'a node = One of 'a | Many of 'a node list
+
+let rec flatten (l : 'a node list) : 'a list =
+  let rec f l acc =
+    match l with
+    | [] -> acc
+    | One x :: tl -> f tl (x :: acc)
+    | Many ll :: tl -> f tl (f ll acc)
+  in
+  List.rev (f l [])
+
+let () =
+  assert (
+    flatten [ One 1; Many [ One 2; Many [ One 3; One 4 ]; One 5 ] ]
+    = [ 1; 2; 3; 4; 5 ]);
+  assert (flatten [] = [])
