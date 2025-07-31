@@ -1,5 +1,4 @@
-let rec last_two l =
-  match l with
+let rec last_two = function
   | [] | [ _ ] -> None
   | [ e1; e2 ] -> Some (e1, e2)
   | _ :: tl -> last_two tl

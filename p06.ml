@@ -1,13 +1,12 @@
 type 'a node = One of 'a | Many of 'a node list
 
 let rec flatten (l : 'a node list) : 'a list =
-  let rec f l acc =
-    match l with
+  let rec f acc = function
     | [] -> acc
-    | One x :: tl -> f tl (x :: acc)
-    | Many ll :: tl -> f tl (f ll acc)
+    | One x :: tl -> f (x :: acc) tl
+    | Many ll :: tl -> f (f acc ll) tl
   in
-  List.rev (f l [])
+  List.rev (f [] l)
 
 let () =
   assert (

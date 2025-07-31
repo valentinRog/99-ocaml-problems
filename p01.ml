@@ -1,5 +1,4 @@
-let rec last l =
-  match l with [ x ] -> Some x | _ :: tl -> last tl | [] -> None
+let rec last = function [ x ] -> Some x | _ :: tl -> last tl | [] -> None
 
 let () =
   assert (last [ 1; 2; 3 ] = Some 3);

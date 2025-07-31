@@ -1,5 +1,5 @@
 let rec rev l =
-  let rec f acc l = match l with [] -> acc | hd :: tl -> f (hd :: acc) tl in
+  let rec f acc = function [] -> acc | hd :: tl -> f (hd :: acc) tl in
   f [] l
 
 let () =
