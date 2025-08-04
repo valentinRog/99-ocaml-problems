@@ -1,6 +1,6 @@
 type 'a node = One of 'a | Many of 'a node list
 
-let rec flatten (l : 'a node list) : 'a list =
+let rec flatten l =
   let rec f acc = function
     | [] -> acc
     | One x :: tl -> f (x :: acc) tl
