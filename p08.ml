@@ -4,7 +4,7 @@ let pack l =
     | hd :: tl, [] -> f tl [ [ hd ] ]
     | hd :: tl, (e :: _ as acc_hd) :: acc_tl when hd = e ->
         f tl ((e :: acc_hd) :: acc_tl)
-    | hd :: tl, (e :: _ as acc_hd) :: acc_tl -> f tl ([ hd ] :: acc_hd :: acc_tl)
+    | hd :: tl, acc_hd :: acc_tl -> f tl ([ hd ] :: acc_hd :: acc_tl)
     | _ -> acc
   in
   f l [] |> List.rev
