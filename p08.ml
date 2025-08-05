@@ -1,17 +1,13 @@
 let pack l =
-  let rec pack_next = function
-    | e1 :: (e2 :: _ as tl) when e1 != e2 -> ([ e1 ], tl)
-    | e1 :: (e2 :: _ as tl) when e1 == e2 ->
-        let acc, tl = pack_next tl in
-        (e1 :: acc, tl)
-    | l -> (l, [])
+  let rec f l acc =
+    match (l, acc) with
+    | hd :: tl, [] -> f tl [ [ hd ] ]
+    | hd :: tl, (e :: _ as acc_hd) :: acc_tl when hd = e ->
+        f tl ((e :: acc_hd) :: acc_tl)
+    | hd :: tl, (e :: _ as acc_hd) :: acc_tl -> f tl ([ hd ] :: acc_hd :: acc_tl)
+    | _ -> acc
   in
-  let rec f = function
-    | [] -> []
-    | l -> (
-        match pack_next l with res, [] -> [ res ] | res, tl -> res :: f tl)
-  in
-  f l
+  f l [] |> List.rev
 
 let () =
   assert (pack [ 1; 1; 2; 3; 3; 3 ] = [ [ 1; 1 ]; [ 2 ]; [ 3; 3; 3 ] ]);
